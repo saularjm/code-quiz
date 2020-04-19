@@ -5,6 +5,7 @@ var gamePage = document.querySelector("#game-page");
 var viewHigh = document.querySelector("#view-hs");
 var startPage = document.querySelector("#start-page");
 var scoresPage = document.querySelector("#scores-page");
+var timeDisplay = document.querySelector("#timer");
 
 // Begin with Start Page showing
 startPage.style.display = "block";
@@ -43,9 +44,23 @@ var questions = [
   ];
 
 // Start button function - TBD
-function startQuiz() {
-    startPage.style.display = "none";
-    gamePage.style.display = "block";
+function startQuiz(event) {
+  event.preventDefault();
+
+  startPage.style.display = "none";
+  gamePage.style.display = "block";
+
 }
 
 startBtn.addEventListener("click", startQuiz);
+
+// View High Scores link function
+viewHigh.addEventListener("click", function(event) {
+  event.preventDefault();
+
+  startPage.style.display = "none";
+  gamePage.style.display = "none";
+  timer.style.display = "none";
+  viewHigh.style.display = "none";
+  scoresPage.style.display = "block";
+})
