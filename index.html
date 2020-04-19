@@ -10,8 +10,51 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
+    <!--Header container-->
     <div class="container">
 
+        <!--Row 1-->
+        <div class="row my-4">
+
+            <!--Top left-->
+            <div class="col-3 text-center">
+                <a href="#" id="view-hs">View High Scores</a>
+            </div>
+
+            <!--Top right-->
+            <div class="offset-6 col-3 text-center">
+                Time: <span id="time-rem"></span>
+            </div>
+        </div>
+
+        <!--Row 2-->
+        <div class="row my-4">
+
+            <!--Game body-->
+            <div class="offset-3 col-6 text-center">
+
+                <!--Start page-->
+                <div id="start-page">
+                    <h1><strong>Coding Quiz!</strong></h1>
+
+                    <p>A timed, multiple-choice quiz to test your coding knowledge!</p>
+                    <p>Click the Start button when you're ready to begin!</p>
+
+                    <button type="button" class="btn btn-success" id="start-button">Begin quiz</button>
+                </div> 
+                
+                <!--Game page-->
+                <div id="game-page">
+
+                </div>
+
+                <!--High scores page-->
+                <div id="scores-page">
+
+                </div>
+                
+            </div>
+        </div>
     </div>
     
     
