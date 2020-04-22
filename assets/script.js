@@ -117,16 +117,6 @@ function renderQuestion() {
       highScorePage.style.display = "none";
     }
   }
-  else if (timeRem.value <= 0) {
-    gameOverHeader.textContent = "Game over!";
-    finalScoreHeader.textContent = "Your final score is: " + score + "/3";
-    startPage.style.display = "none";
-    gamePage.style.display = "none";
-    timeDisplay.style.display = "none";
-    viewHigh.style.display = "none";
-    gameOverPage.style.display = "block";
-    highScorePage.style.display = "none";
-  }
 }
 
 // Function to render buttons for questions
@@ -179,8 +169,18 @@ function startTimer() {
   var timer = setInterval(function(){
   timeLeft--;
   timeRem.textContent = timeLeft;
-  if(timeLeft <= 0)
+  
+  if(timeLeft <= 0) {
     clearInterval(timer);
+    gameOverHeader.textContent = "Game over!";
+    finalScoreHeader.textContent = "Your final score is: " + score + "/3";
+    startPage.style.display = "none";
+    gamePage.style.display = "none";
+    timeDisplay.style.display = "none";
+    viewHigh.style.display = "none";
+    gameOverPage.style.display = "block";
+    highScorePage.style.display = "none";
+  }  
   },1000);
 }
 
@@ -228,7 +228,7 @@ submitScoreBtn.addEventListener("click", function(event) {
   gameOverPage.style.display = "none";
   highScorePage.style.display = "block";
 
-  var scoreText = input.value.trim() + " " + score;
+  var scoreText = input.value.trim() + " - " + score;
 
   // Return from function early if submitted scoreText is blank
   if (scoreText === "") {
