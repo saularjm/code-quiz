@@ -108,23 +108,27 @@ function renderQuestion() {
 
 // Function to render buttons for questions
 function createButtons() {
+  var btnDiv = document.createElement("div");
+  btnDiv.className = "mt-5";
+  qDiv.appendChild(btnDiv);
+
   var btnA = document.createElement("button");
   btnA.textContent = questions[count].answers.a;
   btnA.id = "a";
   btnA.className = "btn btn-info";
-  qDiv.appendChild(btnA);
+  btnDiv.appendChild(btnA);
 
   var btnB = document.createElement("button");
   btnB.textContent = questions[count].answers.b;
   btnB.id = "b";
   btnB.className = "btn btn-info mx-3";
-  qDiv.appendChild(btnB);
+  btnDiv.appendChild(btnB);
 
   var btnC = document.createElement("button");
   btnC.textContent = questions[count].answers.c;
   btnC.id = "c";
   btnC.className = "btn btn-info";
-  qDiv.appendChild(btnC);
+  btnDiv.appendChild(btnC);
 }
 
 // Function to handle button click for answers
