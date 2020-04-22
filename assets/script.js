@@ -12,6 +12,7 @@ var input = document.querySelector("#name-input");
 var highScorePage = document.querySelector("#high-scores-page");
 var submitScoreBtn = document.querySelector("#button-addon2");
 var list = document.querySelector("#high-scores-list");
+var restart = document.querySelector("#restart-button");
 
 // Begin with Start Page showing
 startPage.style.display = "block";
@@ -67,14 +68,21 @@ qDiv.appendChild(br);
 function startQuiz(event) {
   event.preventDefault();
 
+  count = 0;
+  timeLeft = 60; 
+  score = 0;
+
   startPage.style.display = "none";
   gamePage.style.display = "block";
+  gameOverPage.style.display = "none";
+  highScorePage.style.display = "none";
+  timeDisplay.style.display = "initial";
 
   startTimer();
   renderQuestion();
-
 }
 startBtn.addEventListener("click", startQuiz);
+restart.addEventListener("click", startQuiz);
 
 // View High Scores link function
 viewHigh.addEventListener("click", function(event) {
@@ -109,7 +117,7 @@ function renderQuestion() {
       highScorePage.style.display = "none";
     }
   }
-  else if (timeLeft === 0) {
+  else if (timeRem.value <= 0) {
     gameOverHeader.textContent = "Game over!";
     finalScoreHeader.textContent = "Your final score is: " + score + "/3";
     startPage.style.display = "none";
@@ -171,28 +179,69 @@ function startTimer() {
   var timer = setInterval(function(){
   timeLeft--;
   timeRem.textContent = timeLeft;
-  if(timeLeft === 0)
+  if(timeLeft <= 0)
     clearInterval(timer);
   },1000);
 }
 
-// Submitting score
+var highScores = [];
+
+init();
+
+function renderScores() {
+  // Clear list element
+  list.innerHTML = "";
+
+  // Render a new li for each high score
+  for (var i = 0; i < highScores.length; i++) {
+    var hiSc = highScores[i];
+
+    var li = document.createElement("li");
+    li.textContent = hiSc;
+    list.appendChild(li);
+  }
+}
+
+function init() {
+  // Check if there are high scores in localStorage
+  // If so, parse the value from localStorage and assign it to the highScores variable
+  if (localStorage.getItem("scores") !== null) {
+    var storedScores = localStorage.getItem("scores");
+    storedScores = JSON.parse(storedScores);
+    highScores = storedScores;
+
+    // Re-render the list
+    renderScores();
+  }
+}
+
+function storeScores() {
+  // Stringify the highScores array and save it to the "scores" key in localStorage
+  localStorage.setItem("scores",JSON.stringify(highScores));
+}
+
+// When score is submitted
 submitScoreBtn.addEventListener("click", function(event) {
   event.preventDefault();
 
-  var username = document.createElement("li");
-  username.textContent = input.value.trim() + " " + score;
-
-  if (username === "") {
-    return;
-  }
-
-  list.appendChild(username);
-
+  // Display high scores page
   gameOverPage.style.display = "none";
   highScorePage.style.display = "block";
 
-  localStorage.setItem("username", JSON.stringify(input.value.trim()));
-  localStorage.setItem("score", score);
+  var scoreText = input.value.trim() + " " + score;
 
-})
+  // Return from function early if submitted scoreText is blank
+  if (scoreText === "") {
+    return;
+  }
+
+  // Add new scoreText to highScores array, clear the input
+  highScores.push(scoreText);
+  input.value = "";
+
+  // Store updated high scores in localStorage, re-render the list
+  storeScores();
+  renderScores();
+});
+
+
