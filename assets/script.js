@@ -6,6 +6,9 @@ var viewHigh = document.querySelector("#view-hs");
 var startPage = document.querySelector("#start-page");
 var scoresPage = document.querySelector("#scores-page");
 var timeDisplay = document.querySelector("#timer");
+var gameOverHeader = document.querySelector("#game-over");
+var finalScoreHeader = document.querySelector("#final-score");
+var input = document.querySelector("#name-input");
 
 // Begin with Start Page showing
 startPage.style.display = "block";
@@ -45,7 +48,8 @@ var questions = [
 
 // Variables
 var count = 0;
-var timeLeft = 60;  
+var timeLeft = 60; 
+var score = 0; 
 
 // Create HTML element for questions
 var qDiv = document.createElement("h2");
@@ -90,6 +94,8 @@ function renderQuestion() {
     }
     // Else, show scores page
     else {
+      gameOverHeader.textContent = "Game over!";
+      finalScoreHeader.textContent = "Your final score is: " + score + "/3";
       startPage.style.display = "none";
       gamePage.style.display = "none";
       timeDisplay.style.display = "none";
@@ -98,6 +104,8 @@ function renderQuestion() {
     }
   }
   else if (timeLeft === 0) {
+    gameOverHeader.textContent = "Game over!";
+    finalScoreHeader.textContent = "Your final score is: " + score + "/3";
     startPage.style.display = "none";
     gamePage.style.display = "none";
     timeDisplay.style.display = "none";
@@ -140,6 +148,7 @@ function handleClick(event) {
 
     if (currentId === questions[count].correctAnswer) {
       count++;
+      score++;
       renderQuestion();
     }
     else {
