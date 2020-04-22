@@ -54,7 +54,7 @@ gamePage.appendChild(qDiv);
 var br = document.createElement("br");
 qDiv.appendChild(br);
 
-// Start button function - TBD
+// Start button function 
 function startQuiz(event) {
   event.preventDefault();
 
