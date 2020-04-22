@@ -4,16 +4,19 @@ var timeRem = document.querySelector("#time-rem");
 var gamePage = document.querySelector("#game-page");
 var viewHigh = document.querySelector("#view-hs");
 var startPage = document.querySelector("#start-page");
-var scoresPage = document.querySelector("#scores-page");
+var gameOverPage = document.querySelector("#gameover-page");
 var timeDisplay = document.querySelector("#timer");
 var gameOverHeader = document.querySelector("#game-over");
 var finalScoreHeader = document.querySelector("#final-score");
 var input = document.querySelector("#name-input");
+var highScorePage = document.querySelector("#high-scores-page");
+var submitScoreBtn = document.querySelector("#button-addon2");
 
 // Begin with Start Page showing
 startPage.style.display = "block";
 gamePage.style.display = "none";
-scoresPage.style.display = "none";
+gameOverPage.style.display = "none";
+highScorePage.style.display = "none";
 
 // Create questions array
 var questions = [
@@ -80,7 +83,8 @@ viewHigh.addEventListener("click", function(event) {
   gamePage.style.display = "none";
   timeDisplay.style.display = "none";
   viewHigh.style.display = "none";
-  scoresPage.style.display = "block";
+  gameOverPage.style.display = "none";
+  highScorePage.style.display = "block";
 })
 
 // Function to render questions
@@ -100,7 +104,8 @@ function renderQuestion() {
       gamePage.style.display = "none";
       timeDisplay.style.display = "none";
       viewHigh.style.display = "none";
-      scoresPage.style.display = "block";
+      gameOverPage.style.display = "block";
+      highScorePage.style.display = "none";
     }
   }
   else if (timeLeft === 0) {
@@ -110,7 +115,8 @@ function renderQuestion() {
     gamePage.style.display = "none";
     timeDisplay.style.display = "none";
     viewHigh.style.display = "none";
-    scoresPage.style.display = "block";
+    gameOverPage.style.display = "block";
+    highScorePage.style.display = "none";
   }
 }
 
