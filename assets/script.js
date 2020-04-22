@@ -44,7 +44,8 @@ var questions = [
   ];
 
 // Variables
-var count = 0;  
+var count = 0;
+var timeLeft = 60;  
 
 // Create HTML element for questions
 var qDiv = document.createElement("h2");
@@ -61,7 +62,7 @@ function startQuiz(event) {
   startPage.style.display = "none";
   gamePage.style.display = "block";
 
-  //startTimer();
+  startTimer();
   renderQuestion();
 
 }
@@ -73,7 +74,7 @@ viewHigh.addEventListener("click", function(event) {
 
   startPage.style.display = "none";
   gamePage.style.display = "none";
-  timer.style.display = "none";
+  timeDisplay.style.display = "none";
   viewHigh.style.display = "none";
   scoresPage.style.display = "block";
 })
@@ -81,16 +82,25 @@ viewHigh.addEventListener("click", function(event) {
 // Function to render questions
 function renderQuestion() {
 
-  // If there are still questions left, render next question
-  if (count < questions.length) {
-    qDiv.textContent = questions[count].question;
-    createButtons();
+  if (timeLeft > 0) {
+    // If there are still questions left, render next question
+    if (count < questions.length) {
+      qDiv.textContent = questions[count].question;
+      createButtons();
+    }
+    // Else, show scores page
+    else {
+      startPage.style.display = "none";
+      gamePage.style.display = "none";
+      timeDisplay.style.display = "none";
+      viewHigh.style.display = "none";
+      scoresPage.style.display = "block";
+    }
   }
-  // Else, show scores page
-  else {
+  else if (timeLeft === 0) {
     startPage.style.display = "none";
     gamePage.style.display = "none";
-    timer.style.display = "none";
+    timeDisplay.style.display = "none";
     viewHigh.style.display = "none";
     scoresPage.style.display = "block";
   }
@@ -129,8 +139,19 @@ function handleClick(event) {
       renderQuestion();
     }
     else {
-      // Remove time from timer code here
+      timeLeft -= 10;
     }
   }
 }
 gamePage.addEventListener("click", handleClick);
+
+// Timer function
+function startTimer() {
+  
+  var timer = setInterval(function(){
+  timeLeft--;
+  timeRem.textContent = timeLeft;
+  if(timeLeft === 0)
+    clearInterval(timer);
+  },1000);
+}
