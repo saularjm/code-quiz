@@ -11,6 +11,7 @@ var finalScoreHeader = document.querySelector("#final-score");
 var input = document.querySelector("#name-input");
 var highScorePage = document.querySelector("#high-scores-page");
 var submitScoreBtn = document.querySelector("#button-addon2");
+var list = document.querySelector("#high-scores-list");
 
 // Begin with Start Page showing
 startPage.style.display = "block";
@@ -174,3 +175,24 @@ function startTimer() {
     clearInterval(timer);
   },1000);
 }
+
+// Submitting score
+submitScoreBtn.addEventListener("click", function(event) {
+  event.preventDefault();
+
+  var username = document.createElement("li");
+  username.textContent = input.value.trim() + " " + score;
+
+  if (username === "") {
+    return;
+  }
+
+  list.appendChild(username);
+
+  gameOverPage.style.display = "none";
+  highScorePage.style.display = "block";
+
+  localStorage.setItem("username", JSON.stringify(input.value.trim()));
+  localStorage.setItem("score", score);
+
+})
