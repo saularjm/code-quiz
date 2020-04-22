@@ -43,6 +43,17 @@ var questions = [
     }
   ];
 
+// Variables
+var count = 0;  
+
+// Create HTML element for questions
+var qDiv = document.createElement("h2");
+qDiv.id = "q";
+qDiv.className = "mb-4";
+gamePage.appendChild(qDiv);
+var br = document.createElement("br");
+qDiv.appendChild(br);
+
 // Start button function - TBD
 function startQuiz(event) {
   event.preventDefault();
@@ -50,8 +61,10 @@ function startQuiz(event) {
   startPage.style.display = "none";
   gamePage.style.display = "block";
 
-}
+  //startTimer();
+  renderQuestion();
 
+}
 startBtn.addEventListener("click", startQuiz);
 
 // View High Scores link function
@@ -64,3 +77,60 @@ viewHigh.addEventListener("click", function(event) {
   viewHigh.style.display = "none";
   scoresPage.style.display = "block";
 })
+
+// Function to render questions
+function renderQuestion() {
+
+  // If there are still questions left, render next question
+  if (count < questions.length) {
+    qDiv.textContent = questions[count].question;
+    createButtons();
+  }
+  // Else, show scores page
+  else {
+    startPage.style.display = "none";
+    gamePage.style.display = "none";
+    timer.style.display = "none";
+    viewHigh.style.display = "none";
+    scoresPage.style.display = "block";
+  }
+}
+
+// Function to render buttons for questions
+function createButtons() {
+  var btnA = document.createElement("button");
+  btnA.textContent = questions[count].answers.a;
+  btnA.id = "a";
+  btnA.className = "btn btn-info";
+  qDiv.appendChild(btnA);
+
+  var btnB = document.createElement("button");
+  btnB.textContent = questions[count].answers.b;
+  btnB.id = "b";
+  btnB.className = "btn btn-info mx-3";
+  qDiv.appendChild(btnB);
+
+  var btnC = document.createElement("button");
+  btnC.textContent = questions[count].answers.c;
+  btnC.id = "c";
+  btnC.className = "btn btn-info";
+  qDiv.appendChild(btnC);
+}
+
+// Function to handle button click for answers
+function handleClick(event) {
+  event.preventDefault();
+
+  if (event.target.matches("button")) {
+    var currentId = event.target.id;
+
+    if (currentId === questions[count].correctAnswer) {
+      count++;
+      renderQuestion();
+    }
+    else {
+      // Remove time from timer code here
+    }
+  }
+}
+gamePage.addEventListener("click", handleClick);
