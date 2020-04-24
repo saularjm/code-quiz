@@ -20,7 +20,7 @@ gamePage.style.display = "none";
 gameOverPage.style.display = "none";
 highScorePage.style.display = "none";
 
-// Create questions array
+// Questions array
 var questions = [
     {
       question: "What does CSS stand for?",
@@ -91,7 +91,7 @@ gamePage.appendChild(qDiv);
 var br = document.createElement("br");
 qDiv.appendChild(br);
 
-// Start button function 
+// Start/Restart button function 
 function startQuiz(event) {
   event.preventDefault();
 
@@ -179,11 +179,13 @@ function handleClick(event) {
   if (event.target.matches("button")) {
     var currentId = event.target.id;
 
+    // Right answers
     if (currentId === questions[count].correctAnswer) {
       count++;
       score++;
       renderQuestion();
     }
+    // Wrong answers
     else {
       alert("Wrong! That's minus 10 seconds!");
       timeLeft -= 10;
@@ -199,6 +201,7 @@ function startTimer() {
   timeLeft--;
   timeRem.textContent = timeLeft;
   
+  // If time hits 0, show game over page
   if(timeLeft <= 0) {
     clearInterval(timer);
     gameOverHeader.textContent = "Game over!";
@@ -217,6 +220,7 @@ var highScores = [];
 
 init();
 
+// Add item to high scores list
 function renderScores() {
   // Clear list element
   list.innerHTML = "";
@@ -231,6 +235,7 @@ function renderScores() {
   }
 }
 
+// Populate high scores list with previous ones
 function init() {
   // Check if there are high scores in localStorage
   // If so, parse the value from localStorage and assign it to the highScores variable
@@ -244,6 +249,7 @@ function init() {
   }
 }
 
+// Store high scores to localStorage
 function storeScores() {
   // Stringify the highScores array and save it to the "scores" key in localStorage
   localStorage.setItem("scores",JSON.stringify(highScores));
