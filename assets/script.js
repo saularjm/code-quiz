@@ -48,6 +48,33 @@ var questions = [
         c: "script.javascript",
       },
       correctAnswer: "b"
+    },
+    {
+      question: "JQuery is a library framework for what type of code?",
+      answers: {
+        a: "HTML",
+        b: "CSS",
+        c: "JavaScript"
+      },
+      correctAnswer: "c"
+    },
+    {
+      question: "How would you grab an HTML element using JavaScript?",
+      answers: {
+        a: "document.grabElement()",
+        b: "document.querySelector()",
+        c: "window.selectElement()"
+      },
+      correctAnswer: "b"
+    },
+    {
+      question: "What JavaScript method would you use to attach a function to a button click?",
+      answers: {
+        a: "button.gotClicked",
+        b: "addClicker",
+        c: "addEventListener"
+      },
+      correctAnswer: "c"
     }
   ];
 
@@ -77,6 +104,7 @@ function startQuiz(event) {
   gameOverPage.style.display = "none";
   highScorePage.style.display = "none";
   timeDisplay.style.display = "initial";
+  viewHigh.style.display = "initial";
 
   startTimer();
   renderQuestion();
@@ -108,7 +136,7 @@ function renderQuestion() {
     // Else, show scores page
     else {
       gameOverHeader.textContent = "Game over!";
-      finalScoreHeader.textContent = "Your final score is: " + score + "/3";
+      finalScoreHeader.textContent = "Your final score is: " + score + "/6";
       startPage.style.display = "none";
       gamePage.style.display = "none";
       timeDisplay.style.display = "none";
@@ -157,6 +185,7 @@ function handleClick(event) {
       renderQuestion();
     }
     else {
+      alert("Wrong! That's minus 10 seconds!");
       timeLeft -= 10;
     }
   }
@@ -173,7 +202,7 @@ function startTimer() {
   if(timeLeft <= 0) {
     clearInterval(timer);
     gameOverHeader.textContent = "Game over!";
-    finalScoreHeader.textContent = "Your final score is: " + score + "/3";
+    finalScoreHeader.textContent = "Your final score is: " + score + "/6";
     startPage.style.display = "none";
     gamePage.style.display = "none";
     timeDisplay.style.display = "none";
